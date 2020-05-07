@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 class MusicRepository(
     private val musicRemoteRepository: IMusicRemoteRepository,
-    private val musicPersistRespository: MusicPersistRespository
+    private val musicPersistRespository: IMusicPersistRespository
 ) :
     IMusicRepository {
     override fun findAlbum(): Single<List<Album>> {
