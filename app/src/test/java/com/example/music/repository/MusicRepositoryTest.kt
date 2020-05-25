@@ -16,24 +16,24 @@ import org.amshove.kluent.shouldNotBeNull
 class MusicRepositoryTest {
 
     private val musicRemoteRepository = mock<IMusicRemoteRepository>()
-    private val musicPersistRespository = mock<IMusicPersistRespository>()
+    private val musicPersistRepository = mock<IMusicPersistRepository>()
 
     private lateinit var musicRepository: IMusicRepository
 
     @Before
     fun setUp() {
-        musicRepository = MusicRepository(musicRemoteRepository, musicPersistRespository)
+        musicRepository = MusicRepository(musicRemoteRepository, musicPersistRepository)
     }
 
     @After
     fun tearDown() {
-        Mockito.verifyNoMoreInteractions(musicRemoteRepository, musicPersistRespository)
+        Mockito.verifyNoMoreInteractions(musicRemoteRepository, musicPersistRepository)
     }
 
     @Test
     fun testFindAlbum_from_persist() {
         //GIVEN
-        whenever(musicPersistRespository.findAlbum()).thenReturn(
+        whenever(musicPersistRepository.findAlbum()).thenReturn(
             Single.just(listOf(SharedMockData.album, SharedMockData.album2))
         )
 
@@ -55,7 +55,7 @@ class MusicRepositoryTest {
             albumId.shouldBe(SharedMockData.album.albumId)
         }
 
-        verify(musicPersistRespository).findAlbum()
+        verify(musicPersistRepository).findAlbum()
 
         testObserver.dispose()
     }

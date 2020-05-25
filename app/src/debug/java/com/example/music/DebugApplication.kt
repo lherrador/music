@@ -9,7 +9,6 @@ class DebugApplication : MusicApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        //TODO use only on debug
         Stetho.initializeWithDefaults(this)
     }
 }

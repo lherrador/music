@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -57,6 +58,16 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:4.0.0"
     implementation "joda-time:joda-time:2.10.3"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+
+    ext.dagger2_version = '2.24'
+// Basic Dagger 2 (required)
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+// dagger.android package (optional)
+    implementation "com.google.dagger:dagger-android:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+// Support library support (optional)
+    kapt "com.google.dagger:dagger-android-support:$dagger2_version"
 
     implementation "com.facebook.stetho:stetho:1.5.1"
     implementation "com.facebook.stetho:stetho-okhttp3:1.5.1"

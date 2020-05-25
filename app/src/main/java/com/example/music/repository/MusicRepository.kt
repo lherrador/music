@@ -5,14 +5,14 @@ import io.reactivex.Single
 
 class MusicRepository(
     private val musicRemoteRepository: IMusicRemoteRepository,
-    private val musicPersistRespository: IMusicPersistRespository
+    private val musicPersistRepository: IMusicPersistRepository
 ) :
     IMusicRepository {
     override fun findAlbum(): Single<List<Album>> {
-        return musicPersistRespository.findAlbum().flatMap {
+        return musicPersistRepository.findAlbum().flatMap {
             if (it.isEmpty()) {
                 musicRemoteRepository.findAlbum().flatMap { albumList ->
-                    musicPersistRespository.createAlbum(albumList).toSingleDefault(albumList)
+                    musicPersistRepository.createAlbum(albumList).toSingleDefault(albumList)
                 }
             } else {
                 Single.just(it)
