@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.music.R
-import com.example.music.ui.uidata.AlbumUiData
 import com.example.music.ui.recyclerviewholder.AlbumRecyclerViewHolder
+import com.example.music.ui.uidata.AlbumUiData
 
 class AlbumListAdapter :
 		ListAdapter<AlbumUiData, AlbumRecyclerViewHolder>(DiffCallback()) {
