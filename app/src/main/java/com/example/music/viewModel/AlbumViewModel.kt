@@ -9,9 +9,13 @@ import com.example.music.ui.mapper.UiDataMapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.schedulers.Schedulers
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class AlbumViewModel(private val hostApplication: Application,
-                     private val musicDomain: IMusicDomain) : AndroidViewModel(hostApplication) {
+class AlbumViewModel(hostApplication: Application) : AndroidViewModel(hostApplication), KoinComponent {
+
+
+	private val musicDomain: IMusicDomain by inject()
 
 	private val compositeDisposable = CompositeDisposable()
 	private val uiDataMapper = UiDataMapper()
