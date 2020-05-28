@@ -14,7 +14,7 @@ class AlbumViewModelFactory(private val hostApplication: Application) :
 	override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 		if (modelClass.isAssignableFrom(AlbumViewModel::class.java)) {
 			val musicDomain = (hostApplication as MusicApplication).findMusicDomain()
-			return AlbumViewModel(hostApplication, musicDomain) as T
+			return AlbumViewModel(musicDomain) as T
 		}
 		throw IllegalArgumentException("This factory handle only ManualEntryViewModel classes")
 	}

@@ -9,14 +9,11 @@ import org.amshove.kluent.mock
 import org.mockito.Mockito
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
-import org.amshove.kluent.shouldBe
-import org.amshove.kluent.shouldNotBeEmpty
-import org.amshove.kluent.shouldNotBeNull
 
 class MusicRepositoryTest {
 
     private val musicRemoteRepository = mock<IMusicRemoteRepository>()
-    private val musicPersistRespository = mock<IMusicPersistRespository>()
+    private val musicPersistRespository = mock<IMusicPersistRepository>()
 
     private lateinit var musicRepository: IMusicRepository
 
