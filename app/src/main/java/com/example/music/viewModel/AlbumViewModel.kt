@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.music.domain.IMusicDomain
 import com.example.music.ui.mapper.UiDataMapper
-import com.example.mucoroutinessic.ui.uidata.AlbumContentUiData
-import kotlinx..Dispatchers
+import com.example.music.ui.uidata.AlbumContentUiData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
