@@ -2,16 +2,20 @@ package com.example.music.repository
 
 import com.example.music.help.SharedMockData
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.*
+import org.amshove.kluent.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.amshove.kluent.mock
+import org.junit.rules.TestRule
+import org.junit.runner.Description
+import org.junit.runners.model.Statement
 import org.mockito.Mockito
-import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Single
 
 class MusicRepositoryTest {
-
+    private val testCoroutineRule = TestCoroutineRule()
     private val musicRemoteRepository = mock<IMusicRemoteRepository>()
     private val musicPersistRespository = mock<IMusicPersistRepository>()
 
@@ -29,31 +33,47 @@ class MusicRepositoryTest {
 
     @Test
     fun testFindAlbum_from_persist() {
-        //GIVEN
-        whenever(musicPersistRespository.findAlbum()).thenReturn(
-            Single.just(listOf(SharedMockData.album, SharedMockData.album2))
-        )
+        testCoroutineRule.runBloquingTest {
 
-        //WHEN
-        val testObserver = musicRepository.findAlbum()
-            .test()
-            .assertSubscribed()
-            .assertNoErrors()
+            //GIVEN
+            whenever(musicPersistRespository.findAlbum()).thenReturn(
+                listOf(SharedMockData.album, SharedMockData.album2)
+            )
 
-        //THEN
-        val albumList = testObserver.values()[0]
-        albumList.shouldNotBeNull()
-        albumList.shouldNotBeEmpty()
-        with(albumList.first()) {
-            id.shouldBe(SharedMockData.album.id)
-            url.shouldBe(SharedMockData.album.url)
-            title.shouldBe(SharedMockData.album.title)
-            thumbnailUrl.shouldBe(SharedMockData.album.thumbnailUrl)
-            albumId.shouldBe(SharedMockData.album.albumId)
+            //WHEN
+            val albumList = musicRepository.findAlbum()
+
+            //THEN
+            albumList.shouldNotBeNull()
+            albumList.shouldNotBeEmpty()
+            with(albumList.first()) {
+                id.shouldEqual(SharedMockData.album.id)
+                url.shouldEqual(SharedMockData.album.url)
+                title.shouldEqual(SharedMockData.album.title)
+                thumbnailUrl.shouldEqual(SharedMockData.album.thumbnailUrl)
+                albumId.shouldEqual(SharedMockData.album.albumId)
+            }
+
+            verify(musicPersistRespository).findAlbum()
         }
-
-        verify(musicPersistRespository).findAlbum()
-
-        testObserver.dispose()
     }
+}
+
+class TestCoroutineRule : TestRule {
+    private val testCoroutineDispatcher = TestCoroutineDispatcher()
+    private val testCoroutineScope = TestCoroutineScope(testCoroutineDispatcher)
+
+    override fun apply(base: Statement, description: Description)= object : Statement() {
+        @Throws
+        override fun evaluate() {
+            Dispatchers.setMain(testCoroutineDispatcher)
+
+            base.evaluate()
+
+            Dispatchers.resetMain()
+            testCoroutineScope.cleanupTestCoroutines()
+        }
+    }
+
+    fun runBloquingTest(block: suspend TestCoroutineScope.() -> Unit) = testCoroutineScope.runBlockingTest { block() }
 }
