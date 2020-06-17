@@ -1,14 +1,14 @@
-package com.example.music.ui.adapter
+package com.example.music.ui.albumlist.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.music.R
-import com.example.music.ui.recyclerviewholder.AlbumRecyclerViewHolder
+import com.example.music.ui.albumlist.recyclerviewholder.AlbumRecyclerViewHolder
 import com.example.music.ui.uidata.AlbumUiData
 
-class AlbumListAdapter :
+class AlbumListAdapter(private val onClick: (Long) -> Unit = {}) :
 		ListAdapter<AlbumUiData, AlbumRecyclerViewHolder>(DiffCallback()) {
 	override fun onCreateViewHolder(parent: ViewGroup,
 	                                viewType: Int): AlbumRecyclerViewHolder {
@@ -19,7 +19,7 @@ class AlbumListAdapter :
 
 	override fun onBindViewHolder(albumRecyclerViewHolder: AlbumRecyclerViewHolder,
 								  position: Int) {
-		albumRecyclerViewHolder.bind(currentList[position])
+		albumRecyclerViewHolder.bind(currentList[position], onClick)
 	}
 }
 

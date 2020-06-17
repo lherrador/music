@@ -6,7 +6,7 @@
     android:id="@+id/swipeContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AlbumActivity">
+    tools:context=".ui.albumlist.AlbumListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

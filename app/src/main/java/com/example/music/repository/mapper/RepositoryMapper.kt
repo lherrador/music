@@ -9,8 +9,8 @@ class RepositoryMapper {
         return apiAlbumList.map {
             with(it) {
                 Album(
-                    id = id, albumId = albumId, thumbnailUrl = thumbnailUrl, title = title,
-                    url = url
+                    id = id, title = title,
+                    coverBig = coverBig, coverSmall = coverSmall
                 )
             }
         }
@@ -18,12 +18,16 @@ class RepositoryMapper {
 
     fun mapPersistAlbumToLocal(persistAlbumList: List<PersistAlbum>): List<Album> {
         return persistAlbumList.map {
-            with(it) {
-                Album(
-                    id = id, albumId = albumId, thumbnailUrl = thumbnailUrl, title = title,
-                    url = url
-                )
-            }
+            mapPersistAlbumToLocal(it)
+        }
+    }
+
+    fun mapPersistAlbumToLocal(persistAlbum: PersistAlbum): Album {
+        with(persistAlbum) {
+            return Album(
+                id = id, title = title,
+                coverBig = coverBig, coverSmall = coverSmall
+            )
         }
     }
 
@@ -31,8 +35,8 @@ class RepositoryMapper {
         return albumList.map {
             with(it) {
                 PersistAlbum(
-                    id = id, albumId = albumId, thumbnailUrl = thumbnailUrl, title = title,
-                    url = url
+                    id = id, title = title,
+                    coverBig = coverBig, coverSmall = coverSmall
                 )
             }
         }

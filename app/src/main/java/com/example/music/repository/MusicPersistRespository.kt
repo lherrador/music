@@ -21,10 +21,16 @@ class MusicPersistRespository(val albumDao: IAlbumDao) : IMusicPersistRespositor
             albumDao.create(repositoryMapper.mapLocalAlbumToPersit(albumList))
         }
     }
+    override fun findAlbum(id: Long): Single<Album> {
+        return Single.fromCallable {
+            repositoryMapper.mapPersistAlbumToLocal(albumDao.findAlbum(id))
+        }
+    }
 }
 
 
 interface IMusicPersistRespository {
     fun findAlbum(): Single<List<Album>>
+    fun findAlbum(id: Long): Single<Album>
     fun createAlbum(albumList: List<Album>): Completable
 }

@@ -19,8 +19,12 @@ class MusicRepository(
             }
         }
     }
+    override fun findAlbum(id : Long): Single<Album> {
+        return musicPersistRespository.findAlbum(id)
+    }
 }
 
 interface IMusicRepository {
     fun findAlbum(): Single<List<Album>>
+    fun findAlbum(id : Long): Single<Album>
 }

@@ -1,7 +1,8 @@
 package com.example.music.api
 
-import com.example.music.model.api.ApiAlbum
 import com.example.music.BuildConfig
+import com.example.music.model.api.ApiAlbum
+import com.example.music.model.api.ApiAlbumResponse
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import io.reactivex.Single
@@ -37,6 +38,8 @@ class MusicApiClient(baseUrl: String) : IMusicApiClient {
     }
 
     override fun findAlbum(): Single<List<ApiAlbum>> {
-        return musicApi.findAlbum()
+        return musicApi.findAlbum().map {
+            it.data
+        }
     }
 }

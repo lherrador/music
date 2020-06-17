@@ -9,6 +9,9 @@ interface IAlbumDao {
     @Query("SELECT * from album_table")
     fun findAlbum(): List<PersistAlbum>
 
+    @Query("SELECT * from album_table WHERE id = :id")
+    fun findAlbum(id: Long): PersistAlbum
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun create(persistAlbum: PersistAlbum)
 

@@ -1,4 +1,4 @@
-package com.example.music.ui.recyclerviewholder
+package com.example.music.ui.albumlist.recyclerviewholder
 
 import android.view.View
 import android.widget.ImageView
@@ -13,7 +13,10 @@ class AlbumRecyclerViewHolder(private val view: View) : RecyclerView.ViewHolder(
 	private val imageView by bind<ImageView>(R.id.image)
 	private val description by bind<TextView>(R.id.description)
 
-	fun bind(albumUiData: AlbumUiData) {
+	fun bind(albumUiData: AlbumUiData, onClick: (Long) -> Unit = {}) {
+		view.setOnClickListener {
+			onClick.invoke(albumUiData.id)
+		}
 		Picasso.get()
 				.load(albumUiData.image)
 				.placeholder(R.drawable.emty_sate_album)
