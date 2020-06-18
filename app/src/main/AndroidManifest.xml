@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true">
-        <activity android:name=".ui.albumdetail.AlbumActivity"/>
+        <activity android:name=".ui.albumdetail.AlbumActivity" android:theme="@style/Theme.MaterialComponents.NoActionBar"/>
         <activity android:name=".ui.albumlist.AlbumListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,8 +1,11 @@
 package com.example.music.ui.mapper
 
 import com.example.music.model.local.Album
+import com.example.music.model.local.AlbumWithTracks
 import com.example.music.ui.uidata.AlbumContentUiData
+import com.example.music.ui.uidata.AlbumDetailUiData
 import com.example.music.ui.uidata.AlbumUiData
+import com.example.music.ui.uidata.TrackUiData
 
 class UiDataMapper {
 
@@ -14,9 +17,24 @@ class UiDataMapper {
         })
     }
 
-    fun mapAlbumToUiData(album: Album): AlbumUiData {
-        with(album) {
-            return AlbumUiData(id = id, description = title, image = coverBig)
+    fun mapAlbumWithTracksToUiData(albumWithTracks: AlbumWithTracks): AlbumDetailUiData {
+        val tracksListUiData = albumWithTracks.tracks.map {
+            with(it) {
+                TrackUiData(
+                    id = id,
+                    description = title,
+                    image = albumWithTracks.album.coverSmall,
+                    preview = preview
+                )
+            }
+        }
+        with(albumWithTracks.album) {
+            return AlbumDetailUiData(
+                id = id,
+                description = title,
+                image = coverBig,
+                trackList = tracksListUiData
+            )
         }
     }
 }

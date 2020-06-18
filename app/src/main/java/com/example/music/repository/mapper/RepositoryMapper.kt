@@ -1,7 +1,9 @@
 package com.example.music.repository.mapper
 
 import com.example.music.model.api.ApiAlbum
+import com.example.music.model.api.ApiTrack
 import com.example.music.model.local.Album
+import com.example.music.model.local.Track
 import com.example.music.model.persist.PersistAlbum
 
 class RepositoryMapper {
@@ -11,6 +13,16 @@ class RepositoryMapper {
                 Album(
                     id = id, title = title,
                     coverBig = coverBig, coverSmall = coverSmall
+                )
+            }
+        }
+    }
+
+    fun mapRemoteTrackToLocal(apiTrackList: List<ApiTrack>): List<Track> {
+        return apiTrackList.map {
+            with(it) {
+                Track(
+                    id = id, title = title, preview = preview
                 )
             }
         }

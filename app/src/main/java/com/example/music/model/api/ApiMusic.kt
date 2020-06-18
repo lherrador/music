@@ -8,3 +8,10 @@ data class ApiAlbum(@SerializedName("id") val id: Long,
                     @SerializedName("title") val title: String,
                     @SerializedName("cover_small") val coverSmall: String,
                     @SerializedName("cover_big") val coverBig: String)
+
+
+data class ApiTrackResponse(@SerializedName("data") val data: List<ApiTrack>)
+
+data class ApiTrack(@SerializedName("id") val id: Long,
+                    @SerializedName("title") val title: String,
+                    @SerializedName("preview") val preview: String)

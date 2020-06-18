@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.music.R
 import com.example.music.databinding.AlbumDetailBinding
 import com.example.music.databinding.AlbumListActivityMainBinding
+import com.example.music.ui.albumdetail.adapter.TrackListAdapter
+import com.example.music.ui.albumlist.adapter.AlbumListAdapter
 import com.example.music.viewModel.AlbumListViewModel
 import com.example.music.viewModel.AlbumViewModel
 import com.squareup.picasso.Picasso
@@ -18,6 +20,7 @@ import org.koin.core.parameter.parametersOf
 
 class AlbumActivity : AppCompatActivity() {
 
+    private lateinit var trackListAdapter : TrackListAdapter
     private var id: Long = -1L
     private val albumViewModel: AlbumViewModel by viewModel { parametersOf(id) }
     private val compositeDisposable = CompositeDisposable()
@@ -36,6 +39,12 @@ class AlbumActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = AlbumDetailBinding.inflate(layoutInflater)
+
+        trackListAdapter = TrackListAdapter {
+            //TODO play track
+        }
+        binding.recyclerView.adapter = trackListAdapter
+
         setContentView(R.layout.album_detail)
 
         intent.extras?.let { extras ->
@@ -50,7 +59,8 @@ class AlbumActivity : AppCompatActivity() {
             albumViewModel.albumUIDatasource.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe { uiData ->
-                    binding.description.text = uiData.description
+                    //binding.description.text = uiData.description
+                    trackListAdapter.submitList(uiData.trackList)
                     Picasso.get()
                         .load(uiData.image)
                         .placeholder(R.drawable.emty_sate_album)

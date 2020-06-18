@@ -6,7 +6,7 @@ import com.example.music.repository.mapper.RepositoryMapper
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class MusicPersistRespository(val albumDao: IAlbumDao) : IMusicPersistRespository {
+class MusicPersistRepository(val albumDao: IAlbumDao) : IMusicPersistRepository {
 
     private val repositoryMapper = RepositoryMapper()
 
@@ -29,7 +29,7 @@ class MusicPersistRespository(val albumDao: IAlbumDao) : IMusicPersistRespositor
 }
 
 
-interface IMusicPersistRespository {
+interface IMusicPersistRepository {
     fun findAlbum(): Single<List<Album>>
     fun findAlbum(id: Long): Single<Album>
     fun createAlbum(albumList: List<Album>): Completable

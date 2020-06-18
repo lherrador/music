@@ -16,7 +16,7 @@ import org.amshove.kluent.shouldNotBeNull
 class MusicRepositoryTest {
 
     private val musicRemoteRepository = mock<IMusicRemoteRepository>()
-    private val musicPersistRespository = mock<IMusicPersistRespository>()
+    private val musicPersistRespository = mock<IMusicPersistRepository>()
 
     private lateinit var musicRepository: IMusicRepository
 

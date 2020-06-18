@@ -3,6 +3,7 @@ package com.example.music.api
 import com.example.music.BuildConfig
 import com.example.music.model.api.ApiAlbum
 import com.example.music.model.api.ApiAlbumResponse
+import com.example.music.model.api.ApiTrack
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import io.reactivex.Single
@@ -15,6 +16,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MusicApiClient(baseUrl: String) : IMusicApiClient {
     private val musicApi: MusicApi
+
+    companion object {
+        const val USER_ID = 2529L
+    }
 
     init {
         val okHttpClientBuilder = OkHttpClient.Builder()
@@ -38,7 +43,13 @@ class MusicApiClient(baseUrl: String) : IMusicApiClient {
     }
 
     override fun findAlbum(): Single<List<ApiAlbum>> {
-        return musicApi.findAlbum().map {
+        return musicApi.findAlbum(USER_ID).map {
+            it.data
+        }
+    }
+
+    override fun findTrack(albumId: Long): Single<List<ApiTrack>> {
+        return musicApi.findTrack(albumId).map {
             it.data
         }
     }

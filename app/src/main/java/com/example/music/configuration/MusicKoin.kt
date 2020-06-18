@@ -23,7 +23,7 @@ val musicApplicationModule = module {
             )
         )
     }
-    single<IMusicPersistRespository> { MusicPersistRespository(get()) }
+    single<IMusicPersistRepository> { MusicPersistRepository(get()) }
     single<IMusicRepository> { MusicRepository(get(), get()) }
     single<IMusicDomain> { MusicDomain(get()) }
     viewModel { AlbumListViewModel(get()) }
