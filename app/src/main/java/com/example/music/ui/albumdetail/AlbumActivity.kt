@@ -50,6 +50,7 @@ class AlbumActivity : AppCompatActivity() {
         intent.extras?.let { extras ->
             id = extras.getLong(ID)
         }
+
         setContentView(binding.root)
     }
 
@@ -59,7 +60,7 @@ class AlbumActivity : AppCompatActivity() {
             albumViewModel.albumUIDatasource.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe { uiData ->
-                    //binding.description.text = uiData.description
+                    binding.collapsing.title = uiData.description
                     trackListAdapter.submitList(uiData.trackList)
                     Picasso.get()
                         .load(uiData.image)
