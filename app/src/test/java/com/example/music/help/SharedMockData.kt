@@ -4,7 +4,7 @@ import com.example.music.model.local.Album
 
 object SharedMockData {
     val album =
-        Album(id = 1, url = "url", title = "title", thumbnailUrl = "thumbnailUrl", albumId = 1)
+        Album(id = 1, title = "title", coverSmall = "coverSmall", coverBig = "coverBig")
     val album2 =
-        Album(id = 2, url = "url2", title = "title2", thumbnailUrl = "thumbnailUrl2", albumId = 2)
+        Album(id = 2, title = "title2", coverSmall = "coverSmall2", coverBig = "coverBig2")
 }

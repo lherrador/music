@@ -20,18 +20,16 @@ class AlbumDaoTest {
     private val albumPersist =
         PersistAlbum(
             id = 1,
-            url = "url",
             title = "title",
-            thumbnailUrl = "thumbnailUrl",
-            albumId = 1
+            coverBig = "coverBig",
+            coverSmall = "coverSmall"
         )
     private val albumPersist2 =
         PersistAlbum(
             id = 2,
-            url = "url2",
             title = "title2",
-            thumbnailUrl = "thumbnailUrl2",
-            albumId = 2
+            coverBig = "coverBig2",
+            coverSmall = "coverSmall2"
         )
 
     @Before

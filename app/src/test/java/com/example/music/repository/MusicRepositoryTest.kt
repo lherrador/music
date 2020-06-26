@@ -49,10 +49,9 @@ class MusicRepositoryTest {
         albumList.shouldNotBeEmpty()
         with(albumList.first()) {
             id.shouldBe(SharedMockData.album.id)
-            url.shouldBe(SharedMockData.album.url)
+            coverBig.shouldBe(SharedMockData.album.coverBig)
             title.shouldBe(SharedMockData.album.title)
-            thumbnailUrl.shouldBe(SharedMockData.album.thumbnailUrl)
-            albumId.shouldBe(SharedMockData.album.albumId)
+            coverSmall.shouldBe(SharedMockData.album.coverSmall)
         }
 
         verify(musicPersistRespository).findAlbum()
