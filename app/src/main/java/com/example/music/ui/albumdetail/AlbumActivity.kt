@@ -2,6 +2,10 @@ package com.example.music.ui.albumdetail
 
 import android.content.Context
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.music.R
@@ -25,6 +29,7 @@ class AlbumActivity : AppCompatActivity() {
     private val albumViewModel: AlbumViewModel by viewModel { parametersOf(id) }
     private val compositeDisposable = CompositeDisposable()
     private lateinit var binding : AlbumDetailBinding
+    private var mediaPlayer: MediaPlayer? = null
 
     companion object {
         const val ID = "ID"
@@ -41,7 +46,13 @@ class AlbumActivity : AppCompatActivity() {
         binding = AlbumDetailBinding.inflate(layoutInflater)
 
         trackListAdapter = TrackListAdapter {
-            //TODO play track
+            //TODO create an external class to manage the player
+            mediaPlayer?.release()
+            mediaPlayer = MediaPlayer().apply {
+                setDataSource(it)
+                prepare()
+                start()
+            }
         }
         binding.recyclerView.adapter = trackListAdapter
 
@@ -72,6 +83,7 @@ class AlbumActivity : AppCompatActivity() {
 
     override fun onStop() {
         compositeDisposable.dispose()
+        mediaPlayer?.release()
         super.onStop()
     }
 }
